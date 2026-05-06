@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const categories = ['All', 'Mailer boxes', 'Gift boxes', 'Shipping', 'Retail display'];
+
+const items = Array(12).fill(null).map((_, i) => ({
+  id: i + 1,
+  category: categories[(i % 4) + 1],
+  label: `Project ${i + 1}`,
+}));
+---
+
+<Layout title="Gallery">
+
+  <section class="max-w-6xl mx-auto px-6 py-20">
+    <div class="mb-12">
+      <div class="text-xs uppercase tracking-widest text-stone-400 mb-4">Our work</div>
+      <h1 class="font-display text-5xl text-stone-900 mb-4">Gallery</h1>
+      <p class="text-stone-400 text-lg max-w-lg leading-relaxed">
+        A selection of recent custom packaging projects across industries.
+      </p>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="flex flex-wrap gap-2 mb-10" id="filters">
+      {categories.map((cat, i) => (
+        <button
+          data-cat={cat}
+          class={`filter-btn text-xs px-4 py-2 rounded-full border transition-colors ${i === 0 ? 'bg-stone-900 text-white border-stone-900' : 'bg-white text-stone-500 border-stone-200 hover:border-stone-400'}`}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="gallery-grid">
+      {items.map((item, i) => (
+        <div
+          data-cat={item.category}
+          class={`gallery-item bg-stone-100 border border-stone-200 rounded-lg overflow-hidden group cursor-pointer ${i === 0 || i === 5 ? 'row-span-2' : ''}`}
+        >
+          <div class={`w-full flex items-center justify-center bg-stone-100 relative ${i === 0 || i === 5 ? 'h-80' : 'h-40'}`}>
+            <span class="text-stone-300 text-xs">{item.label}</span>
+            <div class="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/10 transition-all flex items-center justify-center">
+              <span class="text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">{item.category}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const filters = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.gallery-item');
+
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.getAttribute('data-cat');
+
+      filters.forEach(b => {
+        b.classList.remove('bg-stone-900', 'text-white', 'border-stone-900');
+        b.classList.add('bg-white', 'text-stone-500', 'border-stone-200');
+      });
+      btn.classList.add('bg-stone-900', 'text-white', 'border-stone-900');
+      btn.classList.remove('bg-white', 'text-stone-500', 'border-stone-200');
+
+      items.forEach(item => {
+        const itemCat = item.getAttribute('data-cat');
+        if (cat === 'All' || itemCat === cat) {
+          (item as HTMLElement).style.display = '';
+        } else {
+          (item as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

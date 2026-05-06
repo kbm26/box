@@ -1,11 +1,225 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const products = [
+  { name: 'Mailer box', spec: 'E-flute · full colour print', tag: 'Popular' },
+  { name: 'Gift box', spec: 'Rigid board · ribbon slot', tag: '' },
+  { name: 'Shipping box', spec: 'B-flute · plain or branded', tag: '' },
+  { name: 'Retail display', spec: 'Counter unit · shelf-ready', tag: '' },
+  { name: 'Folding carton', spec: 'SBS board · gloss or matte', tag: '' },
+  { name: 'Custom insert', spec: 'Foam or corrugated', tag: '' },
+];
+
+const stats = [
+  { num: '500+', label: 'Orders completed' },
+  { num: '5 days', label: 'Standard turnaround' },
+  { num: 'MOQ 50', label: 'Minimum order' },
+  { num: 'CMYK', label: 'Full colour print' },
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Custom Box Packaging">
+
+  <!-- Hero -->
+  <section class="min-h-[88vh] flex flex-col justify-center max-w-6xl mx-auto px-6 py-20">
+    <div class="max-w-2xl animate-fade-in">
+      <div class="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-700 text-xs px-3 py-1.5 rounded-full mb-8 tracking-wide uppercase">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block"></span>
+        Custom packaging · Johannesburg
+      </div>
+      <h1 class="font-display text-5xl md:text-7xl leading-[1.05] text-stone-900 mb-6">
+        Boxes made<br/>
+        <em class="text-amber-600 not-italic">exactly</em> to<br/>
+        your spec
+      </h1>
+      <p class="text-lg text-stone-500 leading-relaxed mb-10 max-w-lg">
+        From single prototypes to full production runs — mailer boxes, gift packaging, retail display. 5-day turnaround on standard orders.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href="#quote" class="bg-amber-600 hover:bg-amber-700 text-white px-7 py-3.5 rounded text-sm font-medium transition-colors">
+          Request a quote
+        </a>
+        <a href="/products" class="border border-stone-300 hover:border-stone-400 text-stone-700 px-7 py-3.5 rounded text-sm font-medium transition-colors">
+          View products
+        </a>
+      </div>
+    </div>
+
+    <!-- Floating label strip -->
+    <div class="mt-16 flex flex-wrap gap-3">
+      {['Mailer boxes', 'Gift packaging', 'Retail display', 'Shipping boxes', 'Custom inserts'].map(tag => (
+        <span class="bg-white border border-stone-200 text-stone-500 text-xs px-4 py-2 rounded-full">
+          {tag}
+        </span>
+      ))}
+    </div>
+  </section>
+
+  <!-- Stats bar -->
+  <section class="border-y border-stone-200 bg-white">
+    <div class="max-w-6xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+      {stats.map(s => (
+        <div class="text-center">
+          <div class="font-display text-3xl text-stone-900 mb-1">{s.num}</div>
+          <div class="text-xs text-stone-400 uppercase tracking-widest">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="max-w-6xl mx-auto px-6 py-24">
+    <div class="flex items-end justify-between mb-12">
+      <div>
+        <div class="text-xs uppercase tracking-widest text-stone-400 mb-3">What we make</div>
+        <h2 class="font-display text-4xl text-stone-900">Our products</h2>
+      </div>
+      <a href="/products" class="text-sm text-amber-600 hover:text-amber-700 transition-colors hidden md:block">
+        View all →
+      </a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+      {products.map(p => (
+        <div class="group bg-white border border-stone-200 rounded-lg p-6 hover:border-amber-300 hover:shadow-sm transition-all cursor-pointer">
+          <div class="w-full h-36 bg-stone-100 rounded mb-5 flex items-center justify-center">
+            <span class="text-stone-300 text-xs">Photo</span>
+          </div>
+          <div class="flex items-start justify-between">
+            <div>
+              <div class="font-medium text-stone-900 mb-1">{p.name}</div>
+              <div class="text-xs text-stone-400">{p.spec}</div>
+            </div>
+            {p.tag && (
+              <span class="text-xs bg-amber-50 text-amber-600 border border-amber-200 px-2 py-0.5 rounded-full">
+                {p.tag}
+              </span>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Process strip -->
+  <section class="bg-stone-900 text-white py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-xs uppercase tracking-widest text-stone-500 mb-12 text-center">How it works</div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        {[
+          { n: '01', title: 'Submit your brief', body: 'Fill out the quote form with your dimensions, quantity, and any artwork.' },
+          { n: '02', title: 'We send a quote', body: 'You\'ll hear back within one business day with pricing and lead time.' },
+          { n: '03', title: 'Approve the proof', body: 'We send a digital proof before going to print. No surprises.' },
+          { n: '04', title: 'Delivery', body: 'Standard orders ship within 5 working days from proof approval.' },
+        ].map(step => (
+          <div>
+            <div class="font-display text-5xl text-stone-700 mb-4">{step.n}</div>
+            <div class="font-medium text-white mb-2">{step.title}</div>
+            <div class="text-sm text-stone-400 leading-relaxed">{step.body}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery preview -->
+  <section class="max-w-6xl mx-auto px-6 py-24">
+    <div class="flex items-end justify-between mb-12">
+      <div>
+        <div class="text-xs uppercase tracking-widest text-stone-400 mb-3">Recent work</div>
+        <h2 class="font-display text-4xl text-stone-900">Gallery</h2>
+      </div>
+      <a href="/gallery" class="text-sm text-amber-600 hover:text-amber-700 transition-colors hidden md:block">
+        View all →
+      </a>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      {Array(8).fill(null).map((_, i) => (
+        <div class={`bg-stone-100 rounded-lg border border-stone-200 flex items-center justify-center text-stone-300 text-xs ${i === 0 ? 'col-span-2 row-span-2 h-64' : 'h-28'}`}>
+          Photo {i + 1}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Quote form -->
+  <section id="quote" class="bg-white border-t border-stone-200 py-24">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <div class="text-xs uppercase tracking-widest text-stone-400 mb-3">Get a quote</div>
+        <h2 class="font-display text-4xl text-stone-900 mb-3">Tell us what you need</h2>
+        <p class="text-stone-400 text-sm">We'll get back to you within one business day.</p>
+      </div>
+
+      <form name="quote" method="POST" data-netlify="true" class="space-y-5">
+        <input type="hidden" name="form-name" value="quote" />
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-xs text-stone-500 uppercase tracking-wider mb-2">Box type</label>
+            <select name="box-type" class="w-full border border-stone-200 rounded px-4 py-3 text-sm bg-stone-50 text-stone-900 focus:outline-none focus:border-amber-400">
+              <option>Mailer box</option>
+              <option>Gift box</option>
+              <option>Shipping box</option>
+              <option>Retail display</option>
+              <option>Folding carton</option>
+              <option>Custom insert</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs text-stone-500 uppercase tracking-wider mb-2">Dimensions (mm)</label>
+            <input type="text" name="dimensions" placeholder="L × W × H" class="w-full border border-stone-200 rounded px-4 py-3 text-sm bg-stone-50 text-stone-900 focus:outline-none focus:border-amber-400 placeholder:text-stone-300" />
+          </div>
+          <div>
+            <label class="block text-xs text-stone-500 uppercase tracking-wider mb-2">Quantity</label>
+            <input type="number" name="quantity" placeholder="e.g. 500" class="w-full border border-stone-200 rounded px-4 py-3 text-sm bg-stone-50 text-stone-900 focus:outline-none focus:border-amber-400 placeholder:text-stone-300" />
+          </div>
+          <div>
+            <label class="block text-xs text-stone-500 uppercase tracking-wider mb-2">Deadline</label>
+            <input type="text" name="deadline" placeholder="e.g. 3 weeks" class="w-full border border-stone-200 rounded px-4 py-3 text-sm bg-stone-50 text-stone-900 focus:outline-none focus:border-amber-400 placeholder:text-stone-300" />
+          </div>
+          <div>
+            <label class="block text-xs text-stone-500 uppercase tracking-wider mb-2">Your name</label>
+            <input type="text" name="name" placeholder="Full name" class="w-full border border-stone-200 rounded px-4 py-3 text-sm bg-stone-50 text-stone-900 focus:outline-none focus:border-amber-400 placeholder:text-stone-300" />
+          </div>
+          <div>
+            <label class="block text-xs text-stone-500 uppercase tracking-wider mb-2">Email</label>
+            <input type="email" name="email" placeholder="you@company.com" class="w-full border border-stone-200 rounded px-4 py-3 text-sm bg-stone-50 text-stone-900 focus:outline-none focus:border-amber-400 placeholder:text-stone-300" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs text-stone-500 uppercase tracking-wider mb-2">Artwork ready?</label>
+          <div class="flex gap-4">
+            {['Yes', 'No', 'Need design help'].map(opt => (
+              <label class="flex items-center gap-2 text-sm text-stone-600 cursor-pointer">
+                <input type="radio" name="artwork" value={opt} class="accent-amber-600" />
+                {opt}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs text-stone-500 uppercase tracking-wider mb-2">Anything else?</label>
+          <textarea name="notes" rows="3" placeholder="Special materials, finishes, or anything we should know..." class="w-full border border-stone-200 rounded px-4 py-3 text-sm bg-stone-50 text-stone-900 focus:outline-none focus:border-amber-400 placeholder:text-stone-300 resize-none"></textarea>
+        </div>
+
+        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-4 rounded text-sm font-medium transition-colors">
+          Send quote request
+        </button>
+      </form>
+    </div>
+  </section>
+
 </Layout>
+
+<style>
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in {
+    animation: fade-in 0.7s ease both;
+  }
+</style>

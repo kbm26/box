@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const products = [
+  {
+    name: 'Mailer box',
+    spec: 'E-flute corrugated',
+    desc: 'Self-locking, no glue required. Perfect for e-commerce and subscription boxes. Full exterior and interior print available.',
+    details: ['Min order: 50 units', 'Full CMYK print', 'Custom sizes', 'Up to 3mm thick'],
+    tag: 'Most popular',
+  },
+  {
+    name: 'Gift box',
+    spec: 'Rigid greyboard',
+    desc: 'Premium rigid construction with a separate lid. Ideal for retail gifting, hampers, and luxury products.',
+    details: ['Min order: 50 units', 'Ribbon slot available', 'Foil stamp & emboss', 'Magnetic closure option'],
+    tag: '',
+  },
+  {
+    name: 'Shipping box',
+    spec: 'B-flute corrugated',
+    desc: 'Heavy-duty protection for transit. Available plain kraft or fully branded with your logo and colours.',
+    details: ['Min order: 100 units', 'Plain or branded', 'RSC & FOL styles', 'Up to 20kg rated'],
+    tag: '',
+  },
+  {
+    name: 'Retail display',
+    spec: 'Counter & shelf unit',
+    desc: 'Point-of-sale display units that put your product front and centre. Counter-top and floor-standing options.',
+    details: ['Min order: 50 units', 'Counter or floor-stand', 'Full colour print', 'Custom structure'],
+    tag: '',
+  },
+  {
+    name: 'Folding carton',
+    spec: 'SBS paperboard',
+    desc: 'Lightweight folding cartons for food, cosmetics, and retail. Gloss or matte lamination options.',
+    details: ['Min order: 200 units', 'Gloss or matte lam', 'Spot UV available', 'Food-safe options'],
+    tag: '',
+  },
+  {
+    name: 'Custom insert',
+    spec: 'Foam or corrugated',
+    desc: 'Snug-fitting inserts that protect your product and elevate the unboxing experience.',
+    details: ['Min order: 50 units', 'Foam or corrugated', 'Cut to your product', 'Pairs with any box'],
+    tag: '',
+  },
+];
+---
+
+<Layout title="Products">
+
+  <section class="max-w-6xl mx-auto px-6 py-20">
+    <div class="mb-14">
+      <div class="text-xs uppercase tracking-widest text-stone-400 mb-4">What we make</div>
+      <h1 class="font-display text-5xl text-stone-900 mb-4">Our products</h1>
+      <p class="text-stone-400 text-lg max-w-xl leading-relaxed">
+        All boxes are custom-sized to your exact dimensions. Standard and premium materials available for every budget.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {products.map(p => (
+        <div class="bg-white border border-stone-200 rounded-lg p-7 hover:border-amber-300 hover:shadow-sm transition-all">
+          <div class="w-full h-48 bg-stone-100 rounded-md mb-6 flex items-center justify-center">
+            <span class="text-stone-300 text-xs">Product photo</span>
+          </div>
+          <div class="flex items-start justify-between mb-2">
+            <h2 class="font-display text-2xl text-stone-900">{p.name}</h2>
+            {p.tag && (
+              <span class="text-xs bg-amber-50 text-amber-600 border border-amber-200 px-2 py-0.5 rounded-full mt-1">
+                {p.tag}
+              </span>
+            )}
+          </div>
+          <div class="text-xs text-stone-400 uppercase tracking-wider mb-3">{p.spec}</div>
+          <p class="text-sm text-stone-500 leading-relaxed mb-5">{p.desc}</p>
+          <div class="flex flex-wrap gap-2">
+            {p.details.map(d => (
+              <span class="text-xs bg-stone-50 border border-stone-200 text-stone-500 px-3 py-1 rounded-full">{d}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 bg-amber-50 border border-amber-200 rounded-lg p-8 text-center">
+      <h3 class="font-display text-2xl text-stone-900 mb-2">Not sure what you need?</h3>
+      <p class="text-stone-500 text-sm mb-6">Describe your product and we'll recommend the right box type and material.</p>
+      <a href="/#quote" class="inline-block bg-amber-600 hover:bg-amber-700 text-white px-7 py-3 rounded text-sm font-medium transition-colors">
+        Get a quote
+      </a>
+    </div>
+  </section>
+
+</Layout>
