@@ -1,17 +1,9 @@
-import daisyui from 'daisyui';
+import { defineConfig } from 'astro/config';
+import tailwindcss from '@tailwindcss/vite';
 
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./src/**/*.{astro,html,js,ts,jsx,tsx}'],
-  plugins: [daisyui],
-  daisyui: {
-    themes: ['light'],
+export default defineConfig({
+  vite: {
+    plugins: [tailwindcss()],
   },
-  theme: {
-    extend: {
-      fontFamily: {
-        display: ['DM Serif Display', 'serif'],
-      },
-    },
-  },
-}
+  site: 'https://yourdomain.co.za',
+});
